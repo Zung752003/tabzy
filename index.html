@@ -41,7 +41,12 @@
 
     <script src="./src/tabzy.js"></script>
     <script>
-        const tabs = new Tabzy("#tabs")
+        const tabs = new Tabzy("#tabs", {
+            //...
+        })
+
+        //tabs.switch("#tab3"); // tabElement or panelSelector
+        //tabs.destroy();
     </script>
 </body>
 
