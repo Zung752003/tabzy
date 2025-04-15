@@ -39,11 +39,37 @@
         Tab3 Content
     </div>
 
+
+    <ul id="tabs2">
+        <li>
+            <a href="#tabA">Tab A</a>
+        </li>
+        <li>
+            <a href="#tabB">Tab B</a>
+        </li>
+        <li>
+            <a href="#tabC">Tab C</a>
+        </li>
+    </ul>
+    <div id="tabA">
+        TabA Content
+    </div>
+    <div id="tabB">
+        TabB Content
+    </div>
+    <div id="tabC">
+        TabC Content
+    </div>
+
     <script src="./src/tabzy.js"></script>
     <script>
-        const tabs = new Tabzy("#tabs", {
+        const tabs1 = new Tabzy("#tabs", {
             remember: true,
-        })
+        });
+
+        const tabs2 = new Tabzy("#tabs2", {
+            remember: true,
+        });
 
         //tabs.switch("#tab3"); // tabElement or panelSelector
         //tabs.destroy();
