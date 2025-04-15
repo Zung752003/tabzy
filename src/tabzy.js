@@ -26,6 +26,7 @@ function Tabzy(selector, options = {}){
 
     this.opt = Object.assign({
         remember: false,
+        onChange: null,
     },options)
 
     
@@ -38,7 +39,9 @@ Tabzy.prototype._init = function(){
 
     const tab = (this.opt.remember && tabSelector && this.tabs.find(tab => tab.getAttribute("href").replace(/[^a-zA-Z0-9]/g, "") === tabSelector)) || this.tabs[0];
     
-    this._activeTab(tab);
+    this._activeTab(tab, triggerOnChange = false);
+
+    this.currentTab = tab;
 
     this.tabs.forEach(tab => {
         tab.onclick = e => this._handleTabClick(e, tab);
@@ -48,10 +51,11 @@ Tabzy.prototype._init = function(){
 
 Tabzy.prototype._handleTabClick = function(e, tab){
     e.preventDefault();
-    this._activeTab(tab);
+
+    this._tryActivateTab(tab)
 }
 
-Tabzy.prototype._activeTab = function(tab){
+Tabzy.prototype._activeTab = function(tab, triggerOnChange = true){
     this.tabs.forEach(tab => tab.closest("li").classList.remove("tabzy--active"));
     tab.closest("li").classList.add("tabzy--active");
     
@@ -64,8 +68,20 @@ Tabzy.prototype._activeTab = function(tab){
         const paramValue = tab.getAttribute("href").replace(/[^a-zA-Z0-9]/g, "");
         params.set(this.paramKey, paramValue)
         history.replaceState(null, null, `?${params}`);
+    }
 
-        //http://127.0.0.1:5500/?%23tabs=%23tab1&%23tabs2=%23tabA
+    if(triggerOnChange && typeof this.opt.onChange === 'function'){
+        this.opt.onChange({
+            tab,
+            panel: panelActive,
+        })
+    }
+}
+
+Tabzy.prototype._tryActivateTab = function(tab){
+    if(this.currentTab !== tab){
+        this._activeTab(tab);
+        this.currentTab = tab;
     }
 }
 
@@ -84,7 +100,7 @@ Tabzy.prototype.switch = function(input){
         console.error(`Tabzy: invalid input '${input}'`)
     }
 
-    this._activeTab(tabToActive);
+    this._tryActivateTab(tabToActive);
 }
 
 Tabzy.prototype.destroy = function(){
