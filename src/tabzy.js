@@ -83,8 +83,8 @@ Tabzy.prototype._activeTab = function(tab, triggerOnChange = true, updateURL = t
 
 Tabzy.prototype._tryActivateTab = function(tab){
     if(this.currentTab !== tab){
-        this._activeTab(tab);
         this.currentTab = tab;
+        this._activeTab(tab);
     }
 }
 
