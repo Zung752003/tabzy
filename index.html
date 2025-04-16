@@ -7,67 +7,157 @@
     <title>Document</title>
     <link rel="stylesheet" href="./src/tabzy.css">
     <style>
-        .tabzy--active a {
-            color: red;
-            font-weight: 600;
+        .tab1 {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab1 li {
+            position: relative;
+        }
+
+        .tab1 a {
+            text-decoration: none;
+            color: #555;
+            padding: 10px 20px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .tab1 a:hover {
+            color: rgb(28, 165, 149);
+        }
+
+        .tab1 .tabzy--active a {
+            color: rgb(28, 165, 149);
+        }
+
+        .tab1:not(.sliding) .tabzy--active::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgb(28, 165, 149);
+        }
+
+        .tabzy-panel {
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+
+        .demo2 {
+            display: flex;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+        }
+
+        .tab2 {
+            margin: 0;
+            width: 10%;
+            list-style: none;
+            padding: 0;
+            gap: 15px;
+            background: #e0e0e074;
+        }
+
+        .tab2 li {
+            position: relative;
+            transition: 0.5s ease-in;
+        }
+
+        .tab2 a {
+            text-decoration: none;
+            color: #555;
+            padding: 15px 20px;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56);
+        }
+
+        .tab2 a:hover {
+            color: rgb(238, 49, 90);
+        }
+
+        .tab2 .tabzy--active a {
+            color: rgb(239, 124, 149);
+            border-left: 5px solid #f56868;
+            background: #fff;
+            transition: all 0.1s ease-in-out;
+        }
+
+        .tabzy-panel2 {
+            padding: 15px;
         }
     </style>
 </head>
 
 <body>
-    <!-- CONTAINER -->
-    <ul id="tabs">
-        <!-- Tabs -->
-        <li>
-            <a href="#tab1">Tab 1</a>
-        </li>
-        <li>
-            <a href="#tab2">Tab 2</a>
-        </li>
-        <li>
-            <a href="#tab3">Tab 3</a>
-        </li>
-    </ul>
-    <!-- PANELS -->
-    <div id="tab1">
-        Tab1 Content
-    </div>
-    <div id="tab2">
-        Tab2 Content
-    </div>
-    <div id="tab3">
-        Tab3 Content
+    <p><strong>1. Tabs Demo 1</strong></p>
+    <div class="demo1">
+        <ul id="tabs" class="tab1">
+            <!-- Tabs -->
+            <li>
+                <a href="#tab1">Tab 1</a>
+            </li>
+            <li>
+                <a href="#tab2">Tab 2</a>
+            </li>
+            <li>
+                <a href="#tab3">Tab 3</a>
+            </li>
+        </ul>
+        <!-- PANELS -->
+        <div id="tab1" class="tabzy-panel">
+            Tab1 Content
+        </div>
+        <div id="tab2" class="tabzy-panel" hidden>
+            Tab2 Content
+        </div>
+        <div id="tab3" class="tabzy-panel" hidden>
+            Tab3 Content
+        </div>
     </div>
 
+    <p><strong>2. Tabs Demo 2</strong></p>
+    <div class="demo2">
+        <ul id="tabs2" class="tab2">
+            <li>
+                <a href="#tabA">Tab A</a>
+            </li>
+            <li>
+                <a href="#tabB">Tab B</a>
+            </li>
+            <li>
+                <a href="#tabC">Tab C</a>
+            </li>
+        </ul>
+        <div id="tabA" class="tabzy-panel2">
+            TabA Content
+        </div>
+        <div id="tabB" class="tabzy-panel2" hidden>
+            TabB Content
+        </div>
+        <div id="tabC" class="tabzy-panel2" hidden>
+            TabC Content
+        </div>
+    </div>
 
-    <ul id="tabs2">
-        <li>
-            <a href="#tabA">Tab A</a>
-        </li>
-        <li>
-            <a href="#tabB">Tab B</a>
-        </li>
-        <li>
-            <a href="#tabC">Tab C</a>
-        </li>
-    </ul>
-    <div id="tabA">
-        TabA Content
-    </div>
-    <div id="tabB">
-        TabB Content
-    </div>
-    <div id="tabC">
-        TabC Content
-    </div>
 
     <script src="./src/tabzy.js"></script>
     <script>
         const tabs1 = new Tabzy("#tabs", {
             remember: true,
-            onChange: (data) => {
-                console.log(data.tab, data.panel)
-            }
+            //onChange: (data) => {
+            //    console.log(data.tab, data.panel)
+            //}
         });
 
         const tabs2 = new Tabzy("#tabs2", {
